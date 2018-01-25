@@ -37,11 +37,7 @@ function filter(data, filters) {
           // loop through filters
           var hasFilter = false;
           for (var j = data[i].options.length; j--; ) {
-            if (!availableImmediately && !freshGrad) {
-              if (filters[k] == data[i].options[j].code) {
-                hasFilter = true;
-              }
-            } else if (
+            if (
               availableImmediately &&
               data[i].options[j].code === AVAILABLE_IMMEDIATELY
             ) {
@@ -50,6 +46,8 @@ function filter(data, filters) {
               freshGrad &&
               data[i].options[j].code === FRESH_GRAD
             ) {
+              hasFilter = true;
+            }else if (filters[k] == data[i].options[j].code) {
               hasFilter = true;
             }
           }
