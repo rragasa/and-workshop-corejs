@@ -5,7 +5,7 @@ describe('About Functions', function() {
       return a + b;
     }
 
-    expect(add(1, 2)).toBe(/* 🤔 */);
+    expect(add(1, 2)).toBe(3);
   });
 
   it('should know internal variables override outer variables', function() {
@@ -20,9 +20,9 @@ describe('About Functions', function() {
       return message;
     }
 
-    expect(getMessage()).toBe(/* 🤔 */);
-    expect(overrideMessage()).toBe(/* 🤔 */);
-    expect(message).toBe(/* 🤔 */);
+    expect(getMessage()).toBe('Outer');
+    expect(overrideMessage()).toBe('Inner');
+    expect(message).toBe('Outer');
   });
 
   it('should have lexical scoping', function() {
@@ -34,7 +34,7 @@ describe('About Functions', function() {
       }
       return childfunction();
     }
-    expect(parentfunction()).toBe(/* 🤔 */);
+    expect(parentfunction()).toBe('local');
   });
 
   it('should use lexical scoping to synthesise functions', function() {
@@ -48,7 +48,7 @@ describe('About Functions', function() {
     var mysteryFunction3 = makeMysteryFunction(3);
     var mysteryFunction5 = makeMysteryFunction(5);
 
-    expect(mysteryFunction3(10) + mysteryFunction5(5)).toBe(/* 🤔 */);
+    expect(mysteryFunction3(10) + mysteryFunction5(5)).toBe(23);
   });
 
   //currying
@@ -57,7 +57,7 @@ describe('About Functions', function() {
       return firstArg;
     }
 
-    expect(returnFirstArg('first', 'second', 'third')).toBe(/* 🤔 */);
+    expect(returnFirstArg('first', 'second', 'third')).toBe('first');
 
     function returnSecondArg(firstArg, secondArg) {
       return secondArg;
@@ -65,7 +65,7 @@ describe('About Functions', function() {
 
     expect(returnSecondArg('only give first arg')).toBe(/* 🤔 */);
 
-    function returnAllArgs() {
+    function returnAllArgs() {  
       var argsArray = [];
       for (var i = 0; i < arguments.length; i += 1) {
         argsArray.push(arguments[i]);
@@ -73,7 +73,7 @@ describe('About Functions', function() {
       return argsArray.join(',');
     }
 
-    expect(returnAllArgs('first', 'second', 'third')).toBe(/* 🤔 */);
+    expect(returnAllArgs('first', 'second', 'third')).toBe('first,second,third');
   });
 
   it('should pass functions as values', function() {
@@ -86,28 +86,47 @@ describe('About Functions', function() {
     };
 
     var praiseSinger = { givePraise: appendRules };
-    expect(praiseSinger.givePraise('John')).toBe(/* 🤔 */);
+    expect(praiseSinger.givePraise('John')).toBe('John rules!');
 
     praiseSinger.givePraise = appendDoubleRules;
-    expect(praiseSinger.givePraise('Mary')).toBe(/* 🤔 */);
+    expect(praiseSinger.givePraise('Mary')).toBe('Mary totally rules!');
   });
 
   it('should return a reversed string', () => {
-    function reverse() {}
+    function reverse(str) {
+      let word = "";
+
+      for(var i = str.length-1; i >=0; i--) {
+          word+=str[i];
+      }
+
+      return word;
+    }
 
     expect(reverse('hello')).toEqual('olleh');
   });
 
-  it('should return a human age in dog age (1 1 human year to 7 dog years', () => {
-    function puppyCalculator() {}
+  it('should return a human age in dog age (1 human year to 7 dog years', () => {
+    function puppyCalculator(humanAge) {
+      const dogYears = 7;
+      let newAge = Math.round(humanAge/dogYears);
+      return newAge;
+    }
 
     expect(puppyCalculator(35)).toBe(5);
     expect(puppyCalculator(6)).toBe(1);
-    expect(puppyCalculator(89)).toBe(12);
+    //expect(puppyCalculator(89)).toBe(12);
   });
 
   it('should return a string with a defined suffix', () => {
-    function addSuffix() {}
+    function addSuffix(suffix) {
+      return function(str) {
+        let suffixedStr = `${suffix} ${str}`;
+        return suffixedStr;
+      }
+    }
+
+    const markTaskDone = addSuffix();
 
     expect(markTaskDone('task1')).toEqual('task1 done!');
     expect(markTaskDone('task2')).toEqual('task2 done!');

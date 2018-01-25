@@ -10,7 +10,13 @@
 
 String.prototype.capitalize = function() {
   console.log(this);
-  // Your stuff
+
+  const textArray = [];
+  textArray.push(this.slice(0,1));
+  
+  return textArray[0].toUpperCase() + this.slice(1);
+
+  // this[0].toUpperCase() + this.slice(1);
 };
 
 test('Capitalise function', () => {

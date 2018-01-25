@@ -13,4 +13,13 @@ fs.readFile(file, 'utf8', function(err, todoList) {
   });
 });
 
+function readFile(file, 'utf8', todoList) {
+
+}
+
+function writeFile(file, todoList) {
+
+}
+
+
 //## 02 create a 08_callback.exercise_01.test.js file and... test :)

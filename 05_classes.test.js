@@ -4,16 +4,27 @@
 
 */
 
-function Animal() {}
+class Animal {
+  speak() {
+    return 'meow';
+  }
 
-Animal.prototype.speak = function() {
-  return 'meow';
-};
+  // Static methods can be accessed without being instantiated
+  static eat() {
+    return 'nom nom nom';
+  }
+}
 
-Animal.eat = function() {
-  return 'nom nom nom';
-};
+// function Animal() {
+// }
 
+// Animal.prototype.speak = function() {
+//   return 'meow';
+// };
+
+// Animal.eat = function() {
+//   return 'nom nom nom';
+// };
 test('Make cat meow', () => {
   const Cat = new Animal();
 
