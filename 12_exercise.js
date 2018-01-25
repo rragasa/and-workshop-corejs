@@ -23,12 +23,13 @@ function filter(data, filters) {
   var availableImmediately = false;
   const FRESH_GRAD = 'FRESH_GRAD';
   const AVAILABLE_IMMEDIATELY = 'AVAILABLE_IMMEDIATELY';
+
   
   filters.includes(AVAILABLE_IMMEDIATELY) ? availableImmediately = true : freshGrad = filters.includes(FRESH_GRAD);
   
   if (filters.length !== 0) {
 
-     for (var i = data.length; i--; ) {
+     for (var i =0; i < data.length; i++) {
       hasOptions = data[i].options && data[i].options.length > 0; //has.options
 
       if (data[i].options) {
@@ -56,7 +57,7 @@ function filter(data, filters) {
         }
       }
       if (hasOptions) {
-        out.unshift(data[i]);
+        out.push(data[i]);
       }
     }
   } else {
