@@ -24,10 +24,13 @@ function filter(results, filters) {
   var availableImmediately = false;
   var freshGrad = false;
 
+  const FRESH_GRAD = 'FRESH_GRAD';
+  const AVAILABLE_IMMEDIATELY = 'AVAILABLE_IMMEDIATELY';
+
   if (filterLength !== 0) {
-    if (filters.indexOf('AVAILABLE_IMMEDIATELY') !== -1) {
+    if (filters.indexOf(AVAILABLE_IMMEDIATELY) !== -1) {
       availableImmediately = true;
-    } else if (filters.indexOf('FRESH_GRAD') !== -1) {
+    } else if (filters.indexOf(FRESH_GRAD) !== -1) {
       freshGrad = true;
     }
 
@@ -45,12 +48,12 @@ function filter(results, filters) {
               }
             } else if (
               availableImmediately &&
-              results[i].options[j].code === 'AVAILABLE_IMMEDIATELY'
+              results[i].options[j].code === AVAILABLE_IMMEDIATELY
             ) {
               hasFilter = true;
             } else if (
               freshGrad &&
-              results[i].options[j].code === 'FRESH_GRAD'
+              results[i].options[j].code === FRESH_GRAD
             ) {
               hasFilter = true;
             }
