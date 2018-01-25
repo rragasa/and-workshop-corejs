@@ -16,44 +16,38 @@
  *   happy refactory :)
  */
 
-function filter(results, filters) {
+function filter(data, filters) {
   var out = [];
-  var resultsLength = results.length;
-  var filterLength = filters.length;
   var hasOptions;
-  var availableImmediately = false;
   var freshGrad = false;
-
+  var availableImmediately = false;
   const FRESH_GRAD = 'FRESH_GRAD';
   const AVAILABLE_IMMEDIATELY = 'AVAILABLE_IMMEDIATELY';
+  
+  filters.includes(AVAILABLE_IMMEDIATELY) ? availableImmediately = true : freshGrad = filters.includes(FRESH_GRAD);
+  
+  if (filters.length !== 0) {
 
-  if (filterLength !== 0) {
-    if (filters.includes(AVAILABLE_IMMEDIATELY)) {
-      availableImmediately = true;
-    } else if (filters.includes(FRESH_GRAD)) {
-      freshGrad = true;
-    }
+     for (var i = data.length; i--; ) {
+      hasOptions = data[i].options && data[i].options.length > 0; //has.options
 
-    for (var i = resultsLength; i--; ) {
-      hasOptions = results[i].options && results[i].options.length > 0; //has.options
-
-      if (results[i].options) {
-        for (var k = filterLength; k--; ) {
+      if (data[i].options) {
+        for (var k = filters.length; k--; ) {
           // loop through filters
           var hasFilter = false;
-          for (var j = results[i].options.length; j--; ) {
+          for (var j = data[i].options.length; j--; ) {
             if (!availableImmediately && !freshGrad) {
-              if (filters[k] == results[i].options[j].code) {
+              if (filters[k] == data[i].options[j].code) {
                 hasFilter = true;
               }
             } else if (
               availableImmediately &&
-              results[i].options[j].code === AVAILABLE_IMMEDIATELY
+              data[i].options[j].code === AVAILABLE_IMMEDIATELY
             ) {
               hasFilter = true;
             } else if (
               freshGrad &&
-              results[i].options[j].code === FRESH_GRAD
+              data[i].options[j].code === FRESH_GRAD
             ) {
               hasFilter = true;
             }
@@ -62,11 +56,11 @@ function filter(results, filters) {
         }
       }
       if (hasOptions) {
-        out.unshift(results[i]);
+        out.unshift(data[i]);
       }
     }
   } else {
-    out = results;
+    out = data;
   }
   return out;
 }
