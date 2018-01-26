@@ -17,7 +17,7 @@
  */
 
 function filter(candidates, filters) {
-  var out = [];
+  var allCandidates = [];
   var resultsLength = candidates.length;
   var filterLength = filters.length;
   var hasOptions;
@@ -25,9 +25,9 @@ function filter(candidates, filters) {
   var freshGrad = false;
 
   if (filterLength !== 0) {
-    if (filters.includes('AVAILABLE_IMMEDIATELY')) {
+    if (filters.indexOf('AVAILABLE_IMMEDIATELY') !== -1) {
       availableImmediately = true;
-    } else if (filters.includes('FRESH_GRAD')) {
+    } else if (filters.indexOf('FRESH_GRAD') !== -1) {
       freshGrad = true;
     }
 
@@ -59,13 +59,13 @@ function filter(candidates, filters) {
         }
       }
       if (hasOptions) {
-        out.unshift(candidates[i]);
+        allCandidates.unshift(candidates[i]);
       }
     }
   } else {
-    out = candidates;
+    allCandidates = candidates;
   }
-  return out;
+  return allCandidates;
 }
 
 module.exports = filter;
